@@ -171,3 +171,14 @@
 .bg-pink-strip {
   background: linear-gradient(90deg, #a02c6d 0%, #d13a8b 50%, #a02c6d 100%);
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
