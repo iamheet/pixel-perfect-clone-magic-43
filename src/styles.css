@@ -2,7 +2,21 @@
 @source "../src";
 @import "tw-animate-css";
 
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap");
+
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Poppins", sans-serif;
+  --color-brand-dark: #2b1f2f;
+  --color-brand-deep: #4a1d3f;
+  --color-brand-pink: #a02c6d;
+  --color-brand-accent: #d13a8b;
+  --color-brand-light: #f3eef7;
+  --color-brand-lavender: #e9def0;
+  --color-brand-text: #2d2d2d;
+}
 
 /*
  * Design system definition.
