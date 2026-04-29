@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiBannerActiveRouteImport } from './routes/api/banner.active'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiBannerActiveRoute = ApiBannerActiveRouteImport.update({
+  id: '/api/banner/active',
+  path: '/api/banner/active',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/banner/active': typeof ApiBannerActiveRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/banner/active': typeof ApiBannerActiveRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/banner/active': typeof ApiBannerActiveRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api/banner/active'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/banner/active'
+  id: '__root__' | '/' | '/api/banner/active'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiBannerActiveRoute: typeof ApiBannerActiveRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/banner/active': {
+      id: '/api/banner/active'
+      path: '/api/banner/active'
+      fullPath: '/api/banner/active'
+      preLoaderRoute: typeof ApiBannerActiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiBannerActiveRoute: ApiBannerActiveRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
