@@ -153,6 +153,21 @@
 
   body {
     background-color: var(--color-background);
-    color: var(--color-foreground);
+    color: var(--color-brand-text);
+    font-family: var(--font-sans);
   }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+  }
+}
+
+.bg-hero-gradient {
+  background: linear-gradient(135deg, #2b1f2f 0%, #4a1d3f 50%, #a02c6d 100%);
+}
+.bg-brand-gradient {
+  background: linear-gradient(90deg, #a02c6d 0%, #d13a8b 100%);
+}
+.bg-pink-strip {
+  background: linear-gradient(90deg, #a02c6d 0%, #d13a8b 50%, #a02c6d 100%);
 }
