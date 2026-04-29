@@ -1,11 +1,29 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import hero1 from "@/assets/hero-1.jpg";
 import hero2 from "@/assets/hero-2.jpg";
 import hero3 from "@/assets/hero-3.jpg";
 import flower from "@/assets/flower.png";
 import leaf from "@/assets/leaf.png";
+import { fetchActiveBanner, type Banner } from "@/services/bannerApi";
 
 export function Hero() {
+  const [banner, setBanner] = useState<Banner | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    fetchActiveBanner()
+      .then((b) => {
+        if (mounted) setBanner(b);
+      })
+      .catch(() => {
+        if (mounted) setBanner(null);
+      });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <section className="relative overflow-hidden bg-hero-gradient">
       {/* decorative wavy lines */}
@@ -49,17 +67,28 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="text-white"
         >
-          <h1 className="font-serif text-3xl font-medium md:text-4xl">
-            What is Hair Treatments ?
-          </h1>
-          <p className="mt-5 max-w-md text-sm leading-relaxed text-white/85">
-            Threading is an ancient art that originated in the Middle East and has made
-            its way to the West and has fast become the preferred option for shaping
-            eyebrows by countless celebrities.
-          </p>
-          <button className="mt-7 rounded-sm bg-brand-gradient px-6 py-2.5 text-sm font-semibold tracking-wide text-white transition-transform hover:scale-105">
-            Learn More
-          </button>
+          {banner ? (
+            <>
+              <h1 className="font-serif text-3xl font-medium md:text-4xl">
+                {banner.title}
+              </h1>
+              <p className="mt-5 max-w-md text-sm leading-relaxed text-white/85">
+                {banner.subtitle}
+              </p>
+              <a
+                href={banner.ctaLink}
+                className="mt-7 inline-block rounded-sm bg-brand-gradient px-6 py-2.5 text-sm font-semibold tracking-wide text-white transition-transform hover:scale-105"
+              >
+                {banner.ctaText}
+              </a>
+            </>
+          ) : (
+            <>
+              <div className="h-9 w-72 animate-pulse rounded bg-white/10 md:h-10" />
+              <div className="mt-5 h-20 max-w-md animate-pulse rounded bg-white/10" />
+              <div className="mt-7 h-10 w-32 animate-pulse rounded bg-white/10" />
+            </>
+          )}
         </motion.div>
 
         {/* RIGHT - overlapping ovals */}
